@@ -1,0 +1,41 @@
+title Full Stack 19 tehtävä 0.4
+
+note over selain:
+Käyttäjä on täyttänyt uuden muistiinpanon tekstin lomakkeelle
+ja painaa tallennusnappia.
+Selain lähettää lomakkeen tiedot sisältävän kutsun palvelimelle.
+end note
+selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note
+note over palvelin:
+Palvelin ottaa kutsuun sisältyvän uuden muistiinpanotekstin
+ja tallentaa sen.
+Vastauksessaan palvelin ohjaa selaimen takaisin
+muistiinpanosivulle.
+end note
+
+palvelin->selain: HTTP 302 Found; Location: /notes
+note over selain:
+Palvelin lataa muistiinpanosivun normaaliin tapaaan,
+kuten sivua ensi kertaa avattaessa.
+end note
+
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/notes
+palvelin->selain: muistiinpanonäytön HTML-lähdekoodi
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.css
+palvelin->selain: muistiinpanonäytön CSS-koodi
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/main.js
+palvelin->selain: muistiinpanonäytön javascript-koodi
+note over selain:
+Selain suorittaa javascript-koodin,
+joka hakee palvelimelta ajantasaisen muistiinpanolistan...
+end note
+selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/data.json
+palvelin->selain: data, joka sisältää tallennetut muistiinpanot, myös juuri tallennetun.
+note over selain:
+... ja päivittää näkymän uuden tilan mukaisesti
+end note
+
+
+
+
+
