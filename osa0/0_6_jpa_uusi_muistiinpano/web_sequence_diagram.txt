@@ -1,0 +1,23 @@
+title Full Stack 19 tehtävä 0.6
+
+note over selain:
+Käyttäjä on kirjoittanut lomakkeen tekstikenttään
+uuden muistiinpanotekstin, ja painaa tallennusnappia.
+end note
+note over selain:
+Selaimessa toimiva sovellus luo uuden
+muistiinpano-objektin, lisää sen muistissaan
+olevaan muistiinpanolistaan sekä päivittää
+näkymän.
+end note:
+note over selain:
+Tämän jälkeen sovellus kutsuu palvelua,
+joka tallentaa uuden muistiinpanon
+palvelimen kantaan.
+end note
+selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+palvelin->selain: kuittaussanoma, joka vahvistaa onnistuneen tallennuksen
+
+
+
+
