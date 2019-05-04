@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+const APIXU_KEY = "91a3de938b7244d48a081029191404"
 
 const QueryForm = ({ onChange }) => {
   return (
@@ -27,6 +28,26 @@ const CountryFactCard = ({ country }) => {
 }
 
 
+const WeatherCard = ({ weatherData, setWeatherData }) => {
+
+  useEffect(() => {
+    axios
+      .get("https://api.apixu.com/v1/current.json?key=91a3de938b7244d48a081029191404&q={query}")
+      .then(r => {
+        setWeatherData(r.data)
+      })
+  })
+  if (weatherData === undefined) {
+    return <div><em>Haetaan säätietoja...</em></div>
+  } else {
+    const temperature = weatherData.current.temp_c
+    return <>
+      {temperature}
+    </>
+  }
+}
+
+
 const QueryResult = ({ query, countryData }) => {
   if (countryData === undefined) {
     return <div><em>fetching country data...</em></div>
@@ -45,15 +66,22 @@ const QueryResult = ({ query, countryData }) => {
     const listItems = matchingCountries.map(c => <li key={c.name}>{c.name}</li>)
     resultMarkup = <ul>{listItems}</ul>
   } else {
-    resultMarkup = <CountryFactCard country={matchingCountries[0]} />
+    const matchingCountryRecord = matchingCountries[0]
+    const matchingCountryCapital = matchingCountryRecord.capital
+    resultMarkup = <>
+      <CountryFactCard country={matchingCountries[0]} />
+      <WeatherCard query={matchingCountryCapital} />
+    </>
   }
   return resultMarkup
 }
 
 
+
 const App = () => {
   const SERVICE_URL = 'https://restcountries.eu/rest/v2/all'
   const [countryData, setCountryData] = useState(undefined);
+  const [weatherData, setWeatherData] = useState(undefined)
   const [query, setQuery] = useState('');
 
   useEffect(() => {
@@ -67,7 +95,7 @@ const App = () => {
   return (
     <>
       <QueryForm onChange={e => setQuery(e.target.value)}></QueryForm>
-      <QueryResult countryData={countryData} query={query} />
+      <QueryResult countryData={countryData} weatherData={weatherData} setWeatherData={setWeatherData} query={query} />
     </>
   )
 }
