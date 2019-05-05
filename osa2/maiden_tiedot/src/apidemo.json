@@ -1,0 +1,41 @@
+{
+    "location": {
+        "name": "Oulu",
+        "region": "Oulu",
+        "country": "Finland",
+        "lat": 65.02,
+        "lon": 25.47,
+        "tz_id": "Europe/Helsinki",
+        "localtime_epoch": 1555229460,
+        "localtime": "2019-04-14 11:11"
+    },
+    "current": {
+        "last_updated_epoch": 1555228818,
+        "last_updated": "2019-04-14 11:00",
+        "temp_c": 4.0,
+        "temp_f": 39.2,
+        "is_day": 1,
+        "condition": {
+            "text": "Sunny",
+            "icon": "//cdn.apixu.com/weather/64x64/day/113.png",
+            "code": 1000
+        },
+        "wind_mph": 6.9,
+        "wind_kph": 11.2,
+        "wind_degree": 280,
+        "wind_dir": "W",
+        "pressure_mb": 1036.0,
+        "pressure_in": 31.1,
+        "precip_mm": 0.0,
+        "precip_in": 0.0,
+        "humidity": 65,
+        "cloud": 0,
+        "feelslike_c": 1.2,
+        "feelslike_f": 34.2,
+        "vis_km": 10.0,
+        "vis_miles": 6.0,
+        "uv": 2.0,
+        "gust_mph": 8.1,
+        "gust_kph": 13.0
+    }
+}
