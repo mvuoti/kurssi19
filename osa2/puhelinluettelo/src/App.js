@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PhoneDatabase from './phone_database'
 
+import './style.css'
+
 
 const Filter = ({ value, onChange }) => {
   return (
@@ -11,6 +13,17 @@ const Filter = ({ value, onChange }) => {
       } />
     </div >
   )
+}
+
+
+const Notification = ({ message, isError }) => {
+  if (message === undefined) {
+    return null
+  } else {
+    const classes = []
+    classes.push(isError ? 'notification-error' : 'notification')
+    return <div className={classes}>{message}</div>
+  }
 }
 
 
@@ -53,10 +66,20 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [info, setInfo] = useState(undefined)
+  const [error, setError] = useState(undefined)
 
   useEffect(
     () => {
-      PhoneDatabase.getAll().then(r => setPersons(r))
+      PhoneDatabase
+        .getAll()
+        .then(r => setPersons(r))
+        .catch(e => {
+          setError(e.message)
+          window.setTimeout(
+            () => setError(undefined), 2000
+          )
+        })
     },
     []
   )
@@ -86,6 +109,18 @@ const App = () => {
                 .filter(p => p.name !== updatedPerson.name)
                 .concat([updatedPerson])
             setPersons(newPersons)
+            setNewName("")
+            setNewNumber("")
+            setInfo(`${newNameTrimmed} päivitetty`)
+            window.setTimeout(
+              () => setInfo(undefined), 2000
+            )
+          })
+          .catch(e => {
+            setError(`Henkilöä ${newNameTrimmed} ei enää ole kannassa!`)
+            window.setTimeout(
+              () => setError(undefined), 2000
+            )
           })
       }
     } else if (isEmpty) {
@@ -100,12 +135,19 @@ const App = () => {
           setNewName("")
           setNewNumber("")
         })
+        .then(() => {
+          setInfo(`${newNameTrimmed} lisätty!`)
+          window.setTimeout(() => {
+            setInfo(undefined)
+          }, 2000)
+        })
     }
   }
 
 
   const handleRemoveClicked = (personToBeRemoved) => {
-    if (window.confirm(`Poistetaanko ${personToBeRemoved.name}`)) {
+    const name = personToBeRemoved.name
+    if (window.confirm(`Poistetaanko ${name}`)) {
       PhoneDatabase
         .remove(personToBeRemoved)
         .then(removedName => {
@@ -113,13 +155,26 @@ const App = () => {
             p => p.name !== removedName
           )
           setPersons(newPersons)
+          setInfo(`${name} poistettu!`)
+          window.setTimeout(() => {
+            setInfo(undefined)
+          }, 2000)
+        })
+        .catch(e => {
+          setError(`Henkilön ${name} poistaminen epäonnistui, oliko jo poistettu?`)
+          window.setTimeout(
+            () => setError(undefined), 2000
+          )
         })
     }
   }
 
+
   return (
     <div>
       <h2>Puhelinluettelo</h2>
+      <Notification isError={true} message={error} />
+      <Notification isError={false} message={info} />
       <Filter value={filter} onChange={(x) => { setFilter(x.toLowerCase()) }} />
       <h3>Lisää uusi</h3>
       <PersonForm

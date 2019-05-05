@@ -2,7 +2,7 @@
   "persons": [
     {
       "name": "Arto Hellas",
-      "number": "123-542123",
+      "number": "24234",
       "id": 1
     },
     {
@@ -16,14 +16,9 @@
       "id": 12
     },
     {
-      "name": "Kalle Anka",
-      "number": "343434",
-      "id": 13
-    },
-    {
-      "name": "Urho Kaleva",
-      "number": "1981",
-      "id": 14
+      "name": "Matti Yankson",
+      "number": "1234234",
+      "id": 17
     }
   ]
 }
