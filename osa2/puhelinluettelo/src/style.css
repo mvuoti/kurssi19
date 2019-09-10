@@ -1,0 +1,15 @@
+.notification,
+.notification-error
+{
+	border: solid black 2px;
+	border-radius: 1ex;
+	background: lightgreen;
+	padding: 1ex;
+	margin: 1ex;
+
+}
+
+.notification-error {
+	background: lightcoral
+}
+
