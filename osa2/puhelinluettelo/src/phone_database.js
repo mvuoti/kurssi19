@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const URL = "http://localhost:3001/api/persons"
+//const URL = "http://localhost:3001/api/persons"
+const URL = "http://mvuoti-fs19-3step10.herokuapp.com/api/persons"
 
 const getAll = () =>
     axios
