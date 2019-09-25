@@ -63,3 +63,6 @@ typings/
 ### ei buildeja
 build/
 
+### vimin swp-tiedostoja
+*.swp
+

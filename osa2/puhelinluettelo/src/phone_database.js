@@ -19,10 +19,10 @@ const update = (person) =>
         .put(`${URL}/${person.id}`, person)
         .then(r => r.data)
 
-const remove = (person) =>
+const remove = (id) =>
     axios
-        .delete(URL + `/${person.id}`)
-        .then(r => person.name)
+        .delete(`${URL}/${id}`)
+        .then(r => id)
 
 export default {
     getAll,
