@@ -131,7 +131,7 @@ const App = () => {
                         showInfoMessage(`${newNameTrimmed} päivitetty`)
                     })
                     .catch(e => 
-                        showErrorMessage(`Henkilöä ${newNameTrimmed} ei enää ole kannassa!`)
+                        showErrorMessage(e.message)
                     )
             }
         } else if (isEmpty) {
@@ -149,6 +149,10 @@ const App = () => {
                 .then(() => 
                    showInfoMessage(`${newNameTrimmed} lisätty!`)
                 )
+		.catch(e => {
+			console.log(e)
+			showErrorMessage(e.message)
+		})
         }
     }
 
