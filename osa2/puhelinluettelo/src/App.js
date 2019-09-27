@@ -5,7 +5,7 @@ import PhoneDatabase from './phone_database'
 import './style.css'
 
 
-const MESSAGE_DISPLAY_TIME_MSEC = 2000
+const MESSAGE_DISPLAY_TIME_MSEC = 4000
 
 
 const Filter = ({ value, onChange }) => {
@@ -95,7 +95,7 @@ const App = () => {
             PhoneDatabase
                 .getAll()
                 .then(r => setPersons(r))
-                .catch(e => showErrorMessage(e.message))
+                .catch(e => showErrorMessage(e.response.data.message))
         },
         []
     )
@@ -105,9 +105,11 @@ const App = () => {
         setNewName(event.target.value)
     }
 
+
     const handleNumberChanged = (event) => {
         setNewNumber(event.target.value)
     }
+
 
     const handleSubmitClicked = (event) => {
         event.preventDefault()
@@ -131,7 +133,7 @@ const App = () => {
                         showInfoMessage(`${newNameTrimmed} päivitetty`)
                     })
                     .catch(e => 
-                        showErrorMessage(e.message)
+                        showErrorMessage(e.response.data.message)
                     )
             }
         } else if (isEmpty) {
@@ -149,9 +151,8 @@ const App = () => {
                 .then(() => 
                    showInfoMessage(`${newNameTrimmed} lisätty!`)
                 )
-		.catch(e => {
-			console.log(e)
-			showErrorMessage(e.message)
+                .catch(e => {
+                    showErrorMessage(e.response.data.message)
 		})
         }
     }
@@ -170,8 +171,7 @@ const App = () => {
                     showInfoMessage(`${name} poistettu!`)
                 })
                 .catch(e => {
-                    console.log(e)
-                    showErrorMessage(`Henkilön ${name} poistaminen epäonnistui, oliko jo poistettu?`)
+                    showErrorMessage(e.response.data.message)
                 })
         }
     }
